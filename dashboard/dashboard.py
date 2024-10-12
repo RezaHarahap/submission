@@ -6,7 +6,7 @@ import calendar
 import seaborn as sns
 import numpy as np 
 
-df = pd.read_csv("hour.csv")
+df = pd.read_csv("dashboard/hour.csv")
 
 st.sidebar.title("Navigation")
 
@@ -22,7 +22,7 @@ if selected_page == "Dashboard":
 
     @st.cache_data
     def load_data():
-        df = pd.read_csv("hour.csv")
+        df = pd.read_csv("dashboard/hour.csv")
         df['dteday'] = pd.to_datetime(df['dteday'])
         return df
 
