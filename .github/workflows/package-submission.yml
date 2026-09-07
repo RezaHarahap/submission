@@ -1,0 +1,33 @@
+name: Package Dicoding Submission
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare clean submission folder
+        run: |
+          mkdir -p submission/dashboard submission/data
+          cp Proyek_Analisis_Data.ipynb submission/
+          if [ -f Advanced_Analysis.ipynb ]; then cp Advanced_Analysis.ipynb submission/; fi
+          cp README.md submission/
+          cp requirements.txt submission/
+          cp url.txt submission/
+          cp dashboard/dashboard.py submission/dashboard/
+          cp dashboard/hour.csv submission/dashboard/
+          cp data/hour.csv submission/data/
+          if [ -f day.csv ]; then cp day.csv submission/data/day.csv; fi
+          zip -r submission-dicoding-5star.zip submission
+
+      - name: Upload submission artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: submission-dicoding-5star
+          path: submission-dicoding-5star.zip
+          if-no-files-found: error
